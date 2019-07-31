@@ -4,7 +4,7 @@ class signup extends Component {
     render() {
         return(
             <div className="container">
-                <h1>SignUp</h1>
+                <h2 className="center">SignUp</h2>
                 <input id="ID" type="text" name="approver's id" />
                 <label htmlFor="ID">Approver's  ID</label>
         

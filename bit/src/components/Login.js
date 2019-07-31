@@ -1,18 +1,25 @@
 import React,{Component} from 'react';
 
 class login extends Component {
-    
+    constructor(props){
+        super(props);
+        this.state={
+            username:'',
+            password:''
+        }
+    }
     handleChange = (e) => {
-        
+        this.setState({
+            [e.target.id]: e.target.value
+        });
     }
     handleSubmit = (e) => {
         e.preventDefault();
-        
     }
     render(){
         return(
             <div className="container">
-            <h1>Login</h1>
+            <h2 className="center">Login</h2>
                 <form  onSubmit={this.handleSubmit}>
                     <label>Employee ID</label><br/>
                     <input type="text" id="username" autoFocus onChange={this.handleChange} /><br/><br/>
