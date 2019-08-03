@@ -23,4 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 
-bit/backend/api/login_api.js
+/login_api.js
+/verifyToken.js
