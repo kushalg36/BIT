@@ -4,8 +4,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Login from './components/Login.js'
 
 
-
-
 class App extends Component {
   render(){
   return (
