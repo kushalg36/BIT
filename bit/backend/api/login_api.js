@@ -40,7 +40,7 @@ router.post('/login',function(req,res){
             bcrypt.compare(password,user.password).then(result => {
                 if(result){
                     // Tokens
-                    const SECRET_KEY = 'fkdsjlkfjdkNKJHRKSJHK';
+                    const SECRET_KEY = '';
                     const token = jwt.sign({_id:user._id},SECRET_KEY);
                     res.header('auth-token',token);
                     return res.send(user);
