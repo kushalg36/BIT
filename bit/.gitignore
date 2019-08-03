@@ -23,5 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 
-/login_api.js
-/verifyToken.js
+login_api.js
+verifyToken.js
