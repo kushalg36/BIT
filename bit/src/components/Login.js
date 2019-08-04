@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 
+
+
 class login extends Component {
     constructor(props){
         super(props);
@@ -20,16 +22,17 @@ class login extends Component {
         const username = this.state.username;
         const password = this.state.password;
         const user = {username,password};
-        console.log(user);
         // handle api requests
         axios.post('http://localhost:4000/api/login',user)
         .then(res => {
-            console.log(res.data);
+            if(res.status === 200){
+                this.props.history.push("/user");
+            }
         })
     }
     render(){
         return(
-            <div className="container">
+            <div className="container">    
             <h2 className="center">Login</h2>
                 <form  onSubmit={this.handleSubmit}>
                     <label>Employee ID</label><br/>

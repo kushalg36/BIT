@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const verify = require('./verifyToken.js');
 
 
 //LOGIN
@@ -13,16 +14,10 @@ router.post('/login',function(req,res){
     var {password} = body;
 
     if(!username){
-        return res.send({
-            success: false,
-            message: "Username can't be blank"
-        })
+        return res.status(400).send('Username can\'t be blank')
     }
     if(!password) {
-        return res.send({
-            success:false,
-            message: "Password can't be blank"
-        })
+        return res.status(400).send('Password can\'t be blank')
     }
     username = username.trim();
 
@@ -30,26 +25,20 @@ router.post('/login',function(req,res){
     User.findOne({username:username}).then(user => {
         // Checks if user exists
         if(!user) {
-            return res.send({
-                success:false,
-                message:"Username not found"
-            });
+            return res.status(400).send('Username not found');
         }
         // Check password
         else{
             bcrypt.compare(password,user.password).then(result => {
                 if(result){
                     // Tokens
-                    const SECRET_KEY = '';
+                    const SECRET_KEY = 'fkdsjlkfjdkNKJHRKSJHK';
                     const token = jwt.sign({_id:user._id},SECRET_KEY);
                     res.header('auth-token',token);
                     return res.send(user);
                 }
                 else{
-                    return res.send({
-                        success:false,
-                        message: "Password is incorrect"
-                })
+                    return res.status(400).send("Password is incorrect")
             }
             })
         }
@@ -58,7 +47,7 @@ router.post('/login',function(req,res){
 
 //SIGNUP
 
-router.post('/signup',function(req,res){
+router.post('/signup',verify,function(req,res){
 
     var {body} = req;
     var {username} = body;
@@ -67,6 +56,7 @@ router.post('/signup',function(req,res){
     var {team} = body;
     var {desk_no} = body;
     var {ext_no} = body;
+    var {approver} = body;
 
     // Hashed password
     bcrypt.genSalt(10).then(salt =>{
@@ -112,15 +102,32 @@ router.post('/signup',function(req,res){
             message: "Extension number can't be blank"
         })
     }
+    if(!approver) {
+        return res.send({
+            success:false,
+            message: "Approver's ID can't be blank"
+        })
+    }
     username = username.trim();
 
     // Check for existing username
     User.findOne({username:username}).then(user => {
         if(!user) {
-            User.create({username: username,password:hashedPassword,name:name,team:team,Desk_no:desk_no,Ext_no:ext_no})
-            .then(user => {
+            User.findOne({username:approver}).then(usercheck =>{
+                if(!usercheck) {
+                    res.send({
+                        success:false,
+                        message: "Enter correct Approver's ID"
+                    })
+                }
+                else {
+                    User.create({username: username,password:hashedPassword,name:name,team:team,Desk_no:desk_no,Ext_no:ext_no,approver:approver})
+                    .then(user => {
                 res.send(user);
             });
+                }
+            })
+            
         }
         else {
             res.send({

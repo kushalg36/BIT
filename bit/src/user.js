@@ -1,21 +1,17 @@
 import React,{Component} from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Login from './components/Login.js';
-import Navbar from './components/NavBar.js';
+import Navbar2 from './components/NavBar2.js';
 import AddIssue from './components/AddIssues';
 import signup from './components/Signup.js';
 import Home from './components/home.js';
-import user from './user.js'
 
-class App extends Component {
+class user extends Component {
   render(){
   return (
     <BrowserRouter>
       <div>
-      <Navbar />
+      <Navbar2 />
         <Route exact path='/' component = {Home} />
-        <Route path='/login' component= {Login} />
-        <Route path='/user' component= {user} />
         <Route path='/signup' component= {signup} />
         <Route path='/addissue' component= {AddIssue} />
       </div>
@@ -24,4 +20,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default user;

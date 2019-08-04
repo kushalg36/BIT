@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema ({
     name: String,
     team: String,
     Desk_no: String,
-    Ext_no: String
+    Ext_no: String,
+    approver: String
 },{versionKey:false});
 
 const user = mongoose.model('Users',userSchema);
