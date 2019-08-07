@@ -34,7 +34,7 @@ router.post('/login',function(req,res){
                     // Tokens
                     const SECRET_KEY = 'fkdsjlkfjdkNKJHRKSJHK';
                     const token = jwt.sign({_id:user._id},SECRET_KEY);
-                    res.header('auth-token',token);
+                    res.headers('auth-token',token);
                     return res.send(user);
                 }
                 else{

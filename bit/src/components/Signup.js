@@ -30,6 +30,7 @@ class signup extends Component {
     }
     render() {
         return(
+            <div>
             <div className="container">
                 <h2 className="center">SignUp</h2>
                 <form onSubmit={this.handleSubmit}>
@@ -59,6 +60,7 @@ class signup extends Component {
                         <i className="material-icons right"></i>
                     </button>
                 </form>
+            </div>
             </div>
         )
     }

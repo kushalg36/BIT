@@ -26,12 +26,15 @@ class login extends Component {
         axios.post('http://localhost:4000/api/login',user)
         .then(res => {
             if(res.status === 200){
-                this.props.history.push("/user");
+                console.log('Logged In');
+                console.log(res.headers);
+                this.props.history.push('/pendingissues');
             }
         })
     }
     render(){
         return(
+            <div>
             <div className="container">    
             <h2 className="center">Login</h2>
                 <form  onSubmit={this.handleSubmit}>
@@ -43,6 +46,7 @@ class login extends Component {
                         <i className="material-icons right"></i>
                     </button>
                 </form>
+            </div>
             </div>
         )
     }
