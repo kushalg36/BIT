@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
-
+import { connect } from 'react-redux';
 
 
 class login extends Component {
@@ -8,7 +8,8 @@ class login extends Component {
         super(props);
         this.state={
             username:'',
-            password:''
+            password:'',
+            authtoken:''
         }
     }
     handleChange = (e) => {
@@ -26,8 +27,9 @@ class login extends Component {
         axios.post('http://localhost:4000/api/login',user)
         .then(res => {
             if(res.status === 200){
-                console.log('Logged In');
-                console.log(res.headers);
+                // console.log(res.data.token);
+                this.setState({authtoken:res.data.token});
+                this.props.authtoken(res.data.token);
                 this.props.history.push('/pendingissues');
             }
         })
@@ -52,4 +54,11 @@ class login extends Component {
     }
 }
 
-export default login;
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        authtoken: (token) => { dispatch({type: 'authtoken', authtoken:token}) }
+    }
+}
+
+export default connect(null,mapDispatchToProps)(login);

@@ -10,11 +10,13 @@ mongoose.connect('mongodb://localhost:27017/isuue_tracker',{useNewUrlParser: tru
 //express app
 const app = express();
 
+
 // Middleware to handle HTTP requests
 app.use(cors());
 
 // middleware to handle POST requests
 app.use(bodyParser.json());
+
 
 // //middleware to handle routes
 app.use('/api',routes);

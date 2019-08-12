@@ -1,16 +1,21 @@
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser'); 
+
 
 module.exports = function (req,res,next){
-    const token = req.header('auth-token');
     const SECRET_KEY = 'fkdsjlkfjdkNKJHRKSJHK';
-    if(!token) return res.status(401).send('Access Denied');
-
-    try {
-        const verified =jwt.verify(token,SECRET_KEY);
-        req.user = verified;
-        next();
+    const token=req.headers['auth_token'];
+    if(!token) {
+        return res.status(400).json({
+            message:'Please login first!'
+        })
     }
-    catch (err) {
-        res.status(400).send('Invalid Token');
-    }
+        try {
+            const verified =jwt.verify(token,SECRET_KEY);
+            req.user = verified;
+            next();
+        }
+        catch (err) {
+            res.status(401).json({message:'Authentication Failed'});
+        }
 }

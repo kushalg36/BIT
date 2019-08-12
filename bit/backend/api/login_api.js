@@ -33,9 +33,12 @@ router.post('/login',function(req,res){
                 if(result){
                     // Tokens
                     const SECRET_KEY = 'fkdsjlkfjdkNKJHRKSJHK';
-                    const token = jwt.sign({_id:user._id},SECRET_KEY);
-                    res.headers('auth-token',token);
-                    return res.send(user);
+                    const token = jwt.sign({_id:user._id},SECRET_KEY,{expiresIn: '24h'});
+                    // res.set('auth_token',token);
+                    req.headers['auth_token'] = token;
+                    return res.status(200).json({
+                        message: "Authentication Successful",
+                        token:token});
                 }
                 else{
                     return res.status(400).send("Password is incorrect")
@@ -45,9 +48,14 @@ router.post('/login',function(req,res){
     });
 });
 
+
+
 //SIGNUP
 
 router.post('/signup',verify,function(req,res){
+
+
+
 
     var {body} = req;
     var {username} = body;
@@ -137,5 +145,7 @@ router.post('/signup',verify,function(req,res){
         }
     });
 });
+
+
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 class signup extends Component {
     constructor(props){
@@ -23,6 +24,7 @@ class signup extends Component {
         e.preventDefault();
 
         const user = this.state;
+        const token = this.props.authtoken;
         axios.post('http://localhost:4000/api/signup',user)
         .then(res => {
             console.log(res.data);
@@ -66,4 +68,10 @@ class signup extends Component {
     }
 }
 
-export default signup;
+const mapStateToProps = (state) => {
+    return {
+        authtoken: state.authtoken
+    }
+}
+
+export default connect(mapStateToProps)(signup);
