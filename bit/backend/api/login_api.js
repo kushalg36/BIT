@@ -35,7 +35,6 @@ router.post('/login',function(req,res){
                     const SECRET_KEY = 'fkdsjlkfjdkNKJHRKSJHK';
                     const token = jwt.sign({_id:user._id},SECRET_KEY,{expiresIn: '24h'});
                     // res.set('auth_token',token);
-                    req.headers['auth_token'] = token;
                     return res.status(200).json({
                         message: "Authentication Successful",
                         token:token});

@@ -19,13 +19,19 @@ class signup extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
+        // console.log(this.props.authtoken)
     }
     handleSubmit = (e) => {
         e.preventDefault();
 
         const user = this.state;
         const token = this.props.authtoken;
-        axios.post('http://localhost:4000/api/signup',user)
+        let config = {
+            headers: {
+                auth_token: token
+            }
+        }
+        axios.post('http://localhost:4000/api/signup',user,config)
         .then(res => {
             console.log(res.data);
         })
