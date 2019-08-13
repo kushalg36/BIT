@@ -4,6 +4,7 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const verify = require('./verifyToken.js');
+const  Issue = require('../models/newIssue');
 
 
 //LOGIN
@@ -34,7 +35,6 @@ router.post('/login',function(req,res){
                     // Tokens
                     const SECRET_KEY = 'fkdsjlkfjdkNKJHRKSJHK';
                     const token = jwt.sign({_id:user._id},SECRET_KEY,{expiresIn: '24h'});
-                    // res.set('auth_token',token);
                     return res.status(200).json({
                         message: "Authentication Successful",
                         token:token});
@@ -51,7 +51,7 @@ router.post('/login',function(req,res){
 
 //SIGNUP
 
-router.post('/signup',verify,function(req,res){
+router.post('/signup',function(req,res){
 
 
 
@@ -145,6 +145,70 @@ router.post('/signup',verify,function(req,res){
     });
 });
 
+
+
+router.post('/issue',function(req,res) {
+    const {body} = req;
+    const {subject} = body;
+    const {email} = body;
+    const {number} = body;
+    const {logic} = body;
+    const {approver} = body;
+    const {team} = body;
+    const {status} = body;
+
+    if(!subject){
+        res.send({
+            success:false,
+            message:'Enter subject'
+        })
+    }
+
+    if(!email){
+        res.send({
+            success:false,
+            message:'Enter email'
+        })
+    }
+
+    if(!number){
+        res.send({
+            success:false,
+            message:'Enter number'
+        })
+    }
+
+    if(!logic){
+        res.send({
+            success:false,
+            message:'Enter logic'
+        })
+    }
+
+    Issue.findOne({subject:subject}).then(issue => {
+        if(!issue) {
+            Issue.create({subject:subject,email:email,number:number,logic:logic,approver:approver,team:team,status:status})
+            .then(up_issue => {
+                res.send(up_issue);
+            });
+        }
+        else {
+            res.send({
+                success:false,
+                message:"Issue has already been saved!"
+            })
+        }
+    });
+    
+});
+
+
+
+router.post('/issues',(req,res) => {
+    Issue.find({status:'open'}).then(issues => {
+        res.send(issues);
+    });
+});
 
 
 module.exports = router;
