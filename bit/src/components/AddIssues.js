@@ -27,7 +27,6 @@ class AddIssues extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
         const token = this.props.authtoken;
         let config = {
             headers: {
@@ -37,9 +36,7 @@ class AddIssues extends Component {
 
         const issue = this.state;
         axios.post('http://localhost:4000/api/issue',issue,config)
-        .then(res => {
-            console.log(res.data);
-        });
+        .then();
     }
 
     render() {

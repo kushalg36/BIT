@@ -11,7 +11,8 @@ class Summary extends Component {
         number:'',
         status:'',
         logic:'',
-        timestamp:''
+        timestamp:'',
+        approver:''
     }
     render(){
 
@@ -32,7 +33,8 @@ class Summary extends Component {
                 number:res.data[0].number,
                 status:res.data[0].status,
                 logic: res.data[0].logic,
-                timestamp: res.data[0].timestamp
+                timestamp: res.data[0].timestamp,
+                approver:res.data[0].approver
             })
         })
         return(
@@ -44,6 +46,8 @@ class Summary extends Component {
                         <p>Name of the user: {this.state.name}</p><br/>
                         <p>Email: {this.state.email}</p><br/>
                         <p>Contact Number: {this.state.number}</p><br/>
+                        <p>Logic: {this.state.logic}</p><br/>
+                        <p>Approver: {this.state.approver}</p><br/>
                         <p>Status: {this.state.status}</p><br/>
                         <div className="card-action grey lighten-4 grey-text">
                                 <p>{this.state.timestamp}</p>
