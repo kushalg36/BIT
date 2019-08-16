@@ -1,10 +1,14 @@
 import React from 'react';
 // import verify from '../../backend/api/verifyToken.js';
+import {connect} from 'react-redux';
 
 const logout = (props) => {
     setTimeout(() => {
         props.history.push('/');
     }, 2000);
+    
+    props.authtoken('');
+
     return(
         <div className="container">
             <h2 className="center">Logging you out...</h2>
@@ -14,4 +18,10 @@ const logout = (props) => {
     )
 }
 
-export default logout;
+const mapDisptachToProps = (dispatch) => {
+    return {
+        authtoken: (token) => {dispatch({type:'authtoken',authtoken:token})}
+    }
+}
+
+export default connect(null,mapDisptachToProps)(logout);
