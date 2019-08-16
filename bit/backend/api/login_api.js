@@ -228,5 +228,14 @@ router.post('/issue',verify,function(req,res) {
     });
 
 
+    router.post('/userDetails',(req,res) => {
+        User.findOne({username:req.body.username}).then(user => {
+            if(user) {
+                res.send(user)
+            }
+        });
+    });
+
+
 
 module.exports = router;
