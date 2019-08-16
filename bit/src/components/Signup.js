@@ -42,8 +42,8 @@ class signup extends Component {
         return(
             <div>
             <div className="container">
-                <h2 className="center">SignUp</h2>
                 <form onSubmit={this.handleSubmit}>
+                    <h2 className="center">SignUp</h2>
                     {/* <input id="ID" type="text" name="approver" onChange={this.handleChange} />
                     <label htmlFor="ID">Approver's  ID</label> */}
                     

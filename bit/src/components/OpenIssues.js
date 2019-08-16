@@ -37,7 +37,8 @@ class openIssues extends Component {
                     <div className="post card" key={issue._id}>
                         <div className="card-content">
                             <span className="card-title">{issue.subject}</span>
-                            <p>{issue.logic}</p>
+                            <p>{issue.name}</p>
+                            <p>{issue.subStatus}</p>
                             <div className="card-action grey lighten-4 grey-text">
                                 <p>{issue.timestamp}</p>
                             </div>

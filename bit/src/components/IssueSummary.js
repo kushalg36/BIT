@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 class Summary extends Component {
     state={
-        // name:'',
+        name:'',
         subject:'',
         email:'',
         number:'',
@@ -27,6 +27,7 @@ class Summary extends Component {
         .then(res => {
             this.setState({
                 subject:res.data[0].subject,
+                name: res.data[0].name,
                 email: res.data[0].email,
                 number:res.data[0].number,
                 status:res.data[0].status,
@@ -40,7 +41,8 @@ class Summary extends Component {
                     <div className="card-content">
                         <h5 className="center title">Issue id: {id}</h5>
                         <p>Subject Line: {this.state.subject}</p><br/>
-                        <p>Email Content: {this.state.email}</p><br/>
+                        <p>Name of the user: {this.state.name}</p><br/>
+                        <p>Email: {this.state.email}</p><br/>
                         <p>Contact Number: {this.state.number}</p><br/>
                         <p>Status: {this.state.status}</p><br/>
                         <div className="card-action grey lighten-4 grey-text">

@@ -8,6 +8,7 @@ class AddIssues extends Component {
         super(props);
             this.state={
                 subject:'',
+                name:'',
                 email:'',
                 number:'',
                 logic:'',
@@ -50,6 +51,9 @@ class AddIssues extends Component {
 
                     <input id="subject" type="text" name="subject" onChange={this.handleChange}/>
                     <label htmlFor="subject">Subject Line</label>
+
+                    <input id="name" type="text" name="name" onChange={this.handleChange}/>
+                    <label htmlFor="name">Name of the user</label>
 
                     <input id="email" type="text" name="email" onChange={this.handleChange}/>
                     <label htmlFor="email">User's email ID</label>
