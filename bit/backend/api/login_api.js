@@ -51,7 +51,7 @@ router.post('/login',function(req,res){
 
 //SIGNUP
 
-router.post('/signup',function(req,res){
+router.post('/signup',verify,function(req,res){
 
 
 
@@ -147,7 +147,7 @@ router.post('/signup',function(req,res){
 
 
 
-router.post('/issue',function(req,res) {
+router.post('/issue',verify,function(req,res) {
     const {body} = req;
     const {subject} = body;
     const {email} = body;
@@ -204,11 +204,20 @@ router.post('/issue',function(req,res) {
 
 
 
-router.post('/issues',(req,res) => {
-    Issue.find({status:'open'}).then(issues => {
-        res.send(issues);
+    router.post('/issues',verify,(req,res) => {
+        Issue.find({status:'open'}).then(issues => {
+            res.send(issues);
+        });
     });
-});
+
+
+    router.post('/issueSummary',verify,(req,res) => {
+        // console.log(req.body);
+        Issue.find({_id:req.body.id}).then(issueSum => {
+            res.send(issueSum);
+        });
+    });
+
 
 
 module.exports = router;

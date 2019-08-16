@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 
 class openIssues extends Component {
@@ -9,7 +11,15 @@ class openIssues extends Component {
     }
 
     componentDidMount(){
-        axios.post('http://localhost:4000/api/issues')
+
+        const token = this.props.authtoken;
+        let config = {
+            headers: {
+                auth_token: token
+            }
+        }
+
+        axios.post('http://localhost:4000/api/issues',null,config)
         .then(issues => {
             this.setState({
                 issues: issues.data
@@ -23,16 +33,19 @@ class openIssues extends Component {
         const issueList = issues.length ? (
             issues.map(issue => {
                 return(
+                    <Link to={'issue/' + issue._id } >
                     <div className="post card" key={issue._id}>
                         <div className="card-content">
                             <span className="card-title">{issue.subject}</span>
                             <p>{issue.logic}</p>
                         </div>
                     </div>
+                    </Link>
                 )
             })
         ) : (
-            <div className="center"><h2>No Issues yet!</h2></div>
+            <div className="center"><h2>No Issues yet!</h2>
+            <p>Or check whether you are logged In😉</p></div>
         )
 
         return (
@@ -45,4 +58,10 @@ class openIssues extends Component {
     }
 } 
 
-export default openIssues;
+const mapStateToProps = (state) => {
+    return {
+        authtoken: state.authtoken
+    }
+}
+
+export default connect(mapStateToProps)(openIssues);

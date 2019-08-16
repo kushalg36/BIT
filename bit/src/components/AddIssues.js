@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 class AddIssues extends Component {
 
@@ -20,14 +21,21 @@ class AddIssues extends Component {
         this.setState({
             [e.target.id]: e.target.value
         });
+        console.log(this.props.authtoken)
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
+        
+        const token = this.props.authtoken;
+        let config = {
+            headers: {
+                auth_token: token
+            }
+        }
 
         const issue = this.state;
-        console.log(issue);
-        axios.post('http://localhost:4000/api/issue',issue)
+        axios.post('http://localhost:4000/api/issue',issue,config)
         .then(res => {
             console.log(res.data);
         });
@@ -48,7 +56,6 @@ class AddIssues extends Component {
                     <input id="number" type="text" name="number" onChange={this.handleChange}/>
                     <label htmlFor="number">Contact number</label>
                     
-                    {/* <textarea name="logic" id="logic" cols="30" rows="10" className="materialize-textarea"></textarea> */}
                     <textarea rows="5" id="logic" type="text" name="subject" onChange={this.handleChange}/>
                     <label htmlFor="logic">Logic of the Issue</label>
 
@@ -63,4 +70,12 @@ class AddIssues extends Component {
     }
 } 
 
-export default AddIssues;
+
+const mapStateToProps = (state) => {
+    return {
+        authtoken: state.authtoken
+    }
+}
+
+
+export default connect(mapStateToProps)(AddIssues);

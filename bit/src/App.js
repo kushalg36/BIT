@@ -7,6 +7,7 @@ import Home from './components/home.js';
 import logout from './components/logout.js';
 import Navbar from './components/NavBar.js';
 import OpenIssues from './components/OpenIssues.js';
+import IssueSummary from './components/IssueSummary.js';
 
 class App extends Component {
   render(){
@@ -21,6 +22,7 @@ class App extends Component {
         <Route path='/addissue' component= {AddIssue} />
         <Route path='/logout' component= {logout} />
         <Route path='/pendingissues' component={OpenIssues} />
+        <Route path='/issue/:id' component={IssueSummary} />
         </div>
       </div>
     </BrowserRouter>
