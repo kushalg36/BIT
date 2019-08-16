@@ -19,14 +19,14 @@ class AddIssues extends Component {
 
     handleChange = (e) => {
         this.setState({
-            [e.target.id]: e.target.value
+            [e.target.id]: e.target.value,
+            approver: this.props.username
         });
-        console.log(this.props.authtoken)
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        
+        console.log(this.state)
         const token = this.props.authtoken;
         let config = {
             headers: {
@@ -47,6 +47,7 @@ class AddIssues extends Component {
             <div className="container">
             <form onSubmit={this.handleSubmit}>
                 <h2 className="center">Add New Issue</h2>
+
                     <input id="subject" type="text" name="subject" onChange={this.handleChange}/>
                     <label htmlFor="subject">Subject Line</label>
 
@@ -58,6 +59,12 @@ class AddIssues extends Component {
                     
                     <textarea rows="5" id="logic" type="text" name="subject" onChange={this.handleChange}/>
                     <label htmlFor="logic">Logic of the Issue</label>
+
+                    <input id="number" type="text" name="number" onChange={this.handleChange}/>
+                    <label htmlFor="number">Contact number</label>
+
+                    <input id="approver" type="text" name="approver" value={this.props.username} disabled onChange={this.specialCase} />
+                    <label htmlFor="approver">Approver</label>
 
                     <br/><br/><br/><br/>
                     
@@ -73,7 +80,8 @@ class AddIssues extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        authtoken: state.authtoken
+        authtoken: state.authtoken,
+        username: state.username
     }
 }
 

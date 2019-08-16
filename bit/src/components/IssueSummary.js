@@ -4,12 +4,6 @@ import {connect} from 'react-redux';
 
 
 class Summary extends Component {
-    // componentDidMount() {
-    //     axios.post('http:localhost:4000/api/issueSummary',id)
-    //     .then(res => {
-    //         console.log(res);
-    //     })
-    // }
     state={
         // name:'',
         subject:'',
@@ -17,7 +11,7 @@ class Summary extends Component {
         number:'',
         status:'',
         logic:'',
-        // timestamp:''
+        timestamp:''
     }
     render(){
 
@@ -36,7 +30,8 @@ class Summary extends Component {
                 email: res.data[0].email,
                 number:res.data[0].number,
                 status:res.data[0].status,
-                logic: res.data[0].logic
+                logic: res.data[0].logic,
+                timestamp: res.data[0].timestamp
             })
         })
         return(
@@ -44,10 +39,13 @@ class Summary extends Component {
                 <div className="card z-depth-10">
                     <div className="card-content">
                         <h5 className="center title">Issue id: {id}</h5>
-                        <p>Subject Line: {this.state.subject}</p>
-                        <p>Email Content: {this.state.email}</p>
-                        <p>Contact Number: {this.state.number}</p>
-                        <p>Status: {this.state.status}</p>
+                        <p>Subject Line: {this.state.subject}</p><br/>
+                        <p>Email Content: {this.state.email}</p><br/>
+                        <p>Contact Number: {this.state.number}</p><br/>
+                        <p>Status: {this.state.status}</p><br/>
+                        <div className="card-action grey lighten-4 grey-text">
+                                <p>{this.state.timestamp}</p>
+                            </div>
                     </div>
                 </div>
             </div>

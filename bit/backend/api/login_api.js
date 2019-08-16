@@ -156,6 +156,8 @@ router.post('/issue',verify,function(req,res) {
     const {approver} = body;
     const {team} = body;
     const {status} = body;
+    const {name} = body;
+    const {subStatus} = body;
 
     if(!subject){
         res.send({
@@ -185,9 +187,16 @@ router.post('/issue',verify,function(req,res) {
         })
     }
 
+    if(!approver) {
+        res.send({
+            success:false,
+            message: 'Please login first'
+        })
+    }
+
     Issue.findOne({subject:subject}).then(issue => {
         if(!issue) {
-            Issue.create({subject:subject,email:email,number:number,logic:logic,approver:approver,team:team,status:status})
+            Issue.create({subject:subject,email:email,number:number,logic:logic,approver:approver,team:team,status:status,timestamp: Date(),subStatus:subStatus,name: name})
             .then(up_issue => {
                 res.send(up_issue);
             });

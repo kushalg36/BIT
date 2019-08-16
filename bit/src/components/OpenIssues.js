@@ -38,6 +38,9 @@ class openIssues extends Component {
                         <div className="card-content">
                             <span className="card-title">{issue.subject}</span>
                             <p>{issue.logic}</p>
+                            <div className="card-action grey lighten-4 grey-text">
+                                <p>{issue.timestamp}</p>
+                            </div>
                         </div>
                     </div>
                     </Link>

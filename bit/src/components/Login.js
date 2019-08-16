@@ -30,6 +30,7 @@ class login extends Component {
                 // console.log(res.data.token);
                 this.setState({authtoken:res.data.token});
                 this.props.authtoken(res.data.token);
+                this.props.username(username);
                 this.props.history.push('/pendingissues');
             }
         })
@@ -57,7 +58,8 @@ class login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        authtoken: (token) => { dispatch({type: 'authtoken', authtoken:token}) }
+        authtoken: (token) => { dispatch({type: 'authtoken', authtoken:token}) },
+        username: (id) => { dispatch({type: 'username',username:id })}
     }
 }
 

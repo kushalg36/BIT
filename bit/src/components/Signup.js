@@ -19,11 +19,13 @@ class signup extends Component {
         this.setState({
             [e.target.name]: e.target.value
         });
-        // console.log(this.props.authtoken)
     }
+
     handleSubmit = (e) => {
         e.preventDefault();
 
+        this.setState({approver: this.props.username})
+        console.log(this.state)
         const user = this.state;
         const token = this.props.authtoken;
         let config = {
@@ -42,8 +44,8 @@ class signup extends Component {
             <div className="container">
                 <h2 className="center">SignUp</h2>
                 <form onSubmit={this.handleSubmit}>
-                    <input id="ID" type="text" name="approver" onChange={this.handleChange} />
-                    <label htmlFor="ID">Approver's  ID</label>
+                    {/* <input id="ID" type="text" name="approver" onChange={this.handleChange} />
+                    <label htmlFor="ID">Approver's  ID</label> */}
                     
                     <input id="employee id" type="text" name="username" onChange={this.handleChange} />
                     <label htmlFor="employee id">New Employee ID</label>
@@ -63,6 +65,9 @@ class signup extends Component {
                     <input id="ext" type="text" name="ext_no" onChange={this.handleChange} />    
                     <label htmlFor="ext">Extension Number</label>
 
+                    <input id="approver" type="text" name="approver" value={this.props.username} disabled onChange={this.specialCase} />
+                    <label htmlFor="approver">Approver</label>
+
                     <br/><br/><br/>
                     <button className="btn waves-effect waves-light" type="submit" name="action">Submit
                         <i className="material-icons right"></i>
@@ -76,7 +81,8 @@ class signup extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        authtoken: state.authtoken
+        authtoken: state.authtoken,
+        username: state.username
     }
 }
 

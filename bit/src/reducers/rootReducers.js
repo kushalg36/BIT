@@ -1,5 +1,6 @@
 const initState = {
-    authtoken:''
+    authtoken:'',
+    username:''
 }
 
 const rootReducer = (state = initState, action) => {
@@ -10,6 +11,14 @@ const rootReducer = (state = initState, action) => {
         return {
             ...state,
             authtoken: newtoken
+        }
+    }
+    if(action.type === "username")
+    {
+        let username = action.username;
+        return {
+            ...state,
+            username: username
         }
     }
     return state;
