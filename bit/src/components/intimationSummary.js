@@ -2,8 +2,7 @@ import React,{Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 
-
-class Summary extends Component {
+class IntimationSummary extends Component {
     state={
         name:'',
         subject:'',
@@ -25,7 +24,7 @@ class Summary extends Component {
         }
 
         const id = this.props.match.params.id;
-        axios.post('http://localhost:4000/api/issueSummary',{id:id},config)
+        axios.post('http://localhost:4000/api/intimationSummary',{id:id},config)
         .then(res => {
             this.setState({
                 subject:res.data[0].subject,
@@ -68,4 +67,4 @@ const mapStateToProps = (state)  => {
     }
 }
 
-export default connect(mapStateToProps)(Summary);
+export default connect(mapStateToProps)(IntimationSummary);

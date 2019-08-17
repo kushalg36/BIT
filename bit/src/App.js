@@ -8,6 +8,8 @@ import logout from './components/logout.js';
 import Navbar from './components/NavBar.js';
 import OpenIssues from './components/OpenIssues.js';
 import IssueSummary from './components/IssueSummary.js';
+import Intimations from './components/intimations.js';
+import IntimationSummary from './components/intimationSummary';
 
 class App extends Component {
   render(){
@@ -23,6 +25,8 @@ class App extends Component {
         <Route path='/logout' component= {logout} />
         <Route path='/pendingissues' component={OpenIssues} />
         <Route path='/issue/:id' component={IssueSummary} />
+        <Route path='/intimations' component={Intimations} />
+        <Route path='/intimation/:id' component={IntimationSummary} />
         </div>
       </div>
     </BrowserRouter>

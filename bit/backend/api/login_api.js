@@ -158,6 +158,7 @@ router.post('/issue',verify,function(req,res) {
     const {status} = body;
     const {name} = body;
     const {subStatus} = body;
+    const {type} = body;
 
     if(!subject){
         res.send({
@@ -196,7 +197,7 @@ router.post('/issue',verify,function(req,res) {
 
     Issue.findOne({subject:subject}).then(issue => {
         if(!issue) {
-            Issue.create({subject:subject,email:email,number:number,logic:logic,approver:approver,team:team,status:status,timestamp: Date(),subStatus:subStatus,name: name})
+            Issue.create({subject:subject,type:type,email:email,number:number,logic:logic,approver:approver,team:team,status:status,timestamp: Date(),subStatus:subStatus,name: name})
             .then(up_issue => {
                 res.send(up_issue);
             });
@@ -214,16 +215,30 @@ router.post('/issue',verify,function(req,res) {
 
 
     router.post('/issues',verify,(req,res) => {
-        Issue.find({status:'open'}).then(issues => {
+        Issue.find({status:'open',type: {$ne: 'intimation'}}).then(issues => {
             res.send(issues);
         });
     });
 
 
+    router.post('/intimation',verify,(req,res) => {
+        Issue.find({status:'open',type:'intimation'}).then(issues => {
+            res.send(issues);
+        });
+    });
+
     router.post('/issueSummary',verify,(req,res) => {
         // console.log(req.body);
         Issue.find({_id:req.body.id}).then(issueSum => {
             res.send(issueSum);
+        });
+    });
+
+    
+    router.post('/intimationSummary',verify,(req,res) => {
+        // console.log(req.body);
+        Issue.find({_id:req.body.id}).then(intimationSum => {
+            res.send(intimationSum);
         });
     });
 

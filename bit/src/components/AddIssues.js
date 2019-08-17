@@ -14,6 +14,7 @@ class AddIssues extends Component {
                 logic:'',
                 approver:'',
                 team:'',
+                type:'',
                 status:'open'
             }
     }
@@ -57,12 +58,12 @@ class AddIssues extends Component {
 
                     <input id="number" type="text" name="number" onChange={this.handleChange}/>
                     <label htmlFor="number">Contact number</label>
+
+                    <input id="type" type="text" name="type" onChange={this.handleChange}/>
+                    <label htmlFor="type">Issue type</label>
                     
                     <textarea rows="5" id="logic" type="text" name="subject" onChange={this.handleChange}/>
                     <label htmlFor="logic">Logic of the Issue</label>
-
-                    <input id="number" type="text" name="number" onChange={this.handleChange}/>
-                    <label htmlFor="number">Contact number</label>
 
                     <input id="approver" type="text" name="approver" value={this.props.username} disabled onChange={this.specialCase} />
                     <label htmlFor="approver">Approver</label>

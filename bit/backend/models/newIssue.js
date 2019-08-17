@@ -10,6 +10,7 @@ const issueSchema = new mongoose.Schema ({
     status:String,
     timestamp: String,
     subStatus: String,
+    type:String,
     name: String
 
 },{versionKey:false});
