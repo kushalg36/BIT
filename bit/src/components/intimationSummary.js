@@ -14,6 +14,14 @@ class IntimationSummary extends Component {
         approver:'',
         type:''
     }
+
+    handleClick = (e) => {
+
+        const id = this.props.match.params.id;
+        axios.put('http://localhost:4000/api/intimations/'+id,{status:'closed'})
+        .then(res => {console.log(res)});
+    } 
+
     render(){
 
         const token = this.props.authtoken;
@@ -54,6 +62,9 @@ class IntimationSummary extends Component {
                         <div className="card-action grey lighten-4 grey-text">
                                 <p>{this.state.timestamp}</p>
                             </div>
+                        <div className="card-action">
+                            <button className="btn" onClick={this.handleClick}>Done ✔</button>
+                        </div>
                     </div>
                 </div>
             </div>

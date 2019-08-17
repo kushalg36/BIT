@@ -252,5 +252,12 @@ router.post('/issue',verify,function(req,res) {
     });
 
 
+    router.put('/intimations/:id',(req,res) => {
+        Issue.findByIdAndUpdate({_id:req.params.id},req.body).then(res => {
+            res.send(res)
+        });
+    });
+
+
 
 module.exports = router;
