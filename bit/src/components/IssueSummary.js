@@ -13,8 +13,25 @@ class Summary extends Component {
         logic:'',
         timestamp:'',
         approver:'',
-        type:''
+        type:'',
+        substatus:'',
+        newsubstatus:''
     }
+
+    handlesubStatus = (e) => {
+        this.setState({
+            newsubstatus: e.target.value
+        })
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        console.log(this.state.newsubstatus)
+        axios.put('http://localhost:4000/api/issue/' + this.props.match.params.id,{substatus: this.state.newsubstatus})
+        .then(res => {console.log(res)});
+    }
+
     render(){
 
         const token = this.props.authtoken;
@@ -36,9 +53,13 @@ class Summary extends Component {
                 logic: res.data[0].logic,
                 timestamp: res.data[0].timestamp,
                 approver:res.data[0].approver,
-                type: res.data[0].type
+                type: res.data[0].type,
+                substatus:res.data[0].substatus
             })
         })
+
+        const newsubstatus = this.state.substatus
+
         return(
             <div className="container section project-details">
                 <div className="card z-depth-10">
@@ -53,8 +74,22 @@ class Summary extends Component {
                         <p>Status: {this.state.status}</p><br/>
                         <p>Type: {this.state.type}</p><br/>
                         <div className="card-action grey lighten-4 grey-text">
-                                <p>{this.state.timestamp}</p>
+                            <p>{this.state.timestamp}</p>
+                        </div>
+
+                        <hr/>
+                        <div className="center">
+                            Status:
+                            <br/>
+                            {newsubstatus}
+                            <br/>
                             </div>
+                        <hr/>
+                        <form onSubmit={this.handleSubmit}>
+                            <textarea rows="5" id="newsubstatus" type="text" name="substatus" onChange={this.handlesubStatus}/>
+                            <label htmlFor="newsubstatus">Enter your status for the requirment</label><br/><br/>
+                            <button className="btn">Submit🙌</button>
+                        </form>
                     </div>
                 </div>
             </div>

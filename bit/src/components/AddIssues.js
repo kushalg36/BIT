@@ -15,7 +15,8 @@ class AddIssues extends Component {
                 approver:'',
                 team:'',
                 type:'',
-                status:'open'
+                status:'open',
+                substatus:''
             }
     }
 

@@ -157,7 +157,7 @@ router.post('/issue',verify,function(req,res) {
     const {team} = body;
     const {status} = body;
     const {name} = body;
-    const {subStatus} = body;
+    const {substatus} = body;
     const {type} = body;
 
     if(!subject){
@@ -197,7 +197,7 @@ router.post('/issue',verify,function(req,res) {
 
     Issue.findOne({subject:subject}).then(issue => {
         if(!issue) {
-            Issue.create({subject:subject,type:type,email:email,number:number,logic:logic,approver:approver,team:team,status:status,timestamp: Date(),subStatus:subStatus,name: name})
+            Issue.create({subject:subject,type:type,email:email,number:number,logic:logic,approver:approver,team:team,status:status,timestamp: Date(),substatus:substatus,name: name})
             .then(up_issue => {
                 res.send(up_issue);
             });
@@ -253,8 +253,15 @@ router.post('/issue',verify,function(req,res) {
 
 
     router.put('/intimations/:id',(req,res) => {
-        Issue.findByIdAndUpdate({_id:req.params.id},req.body).then(res => {
-            res.send(res)
+        Issue.findByIdAndUpdate({_id:req.params.id},req.body).then(result => {
+            res.send(result)
+        });
+    });
+
+
+    router.put('/issue/:id',(req,res) => {
+        Issue.findByIdAndUpdate({_id:req.params.id},req.body).then(result => {
+            res.send(result)
         });
     });
 

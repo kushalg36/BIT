@@ -9,7 +9,7 @@ const issueSchema = new mongoose.Schema ({
     approver: String,
     status:String,
     timestamp: String,
-    subStatus: String,
+    substatus: String,
     type:String,
     name: String
 
