@@ -15,10 +15,10 @@ router.post('/login',function(req,res){
     var {password} = body;
 
     if(!username){
-        return res.status(400).send('Username can\'t be blank')
+        return res.send('Username can\'t be blank')
     }
     if(!password) {
-        return res.status(400).send('Password can\'t be blank')
+        return res.send('Password can\'t be blank')
     }
     username = username.trim();
 
@@ -26,7 +26,7 @@ router.post('/login',function(req,res){
     User.findOne({username:username}).then(user => {
         // Checks if user exists
         if(!user) {
-            return res.status(400).send('Username not found');
+            return res.send('Username not found');
         }
         // Check password
         else{
@@ -40,7 +40,7 @@ router.post('/login',function(req,res){
                         token:token});
                 }
                 else{
-                    return res.status(400).send("Password is incorrect")
+                    return res.send("Password is incorrect")
             }
             })
         }
@@ -74,46 +74,25 @@ router.post('/signup',verify,function(req,res){
 
 
     if(!username){
-        return res.send({
-            success: false,
-            message: "Username can't be blank"
-        })
+        return res.send("Username can't be blank")
     }
     if(!password) {
-        return res.send({
-            success:false,
-            message: "Password can't be blank"
-        })
+        return res.send("Password can't be blank")
     }
     if(!name){
-        return res.send({
-            success: false,
-            message: "Name can't be blank"
-        })
+        return res.send("Name can't be blank")
     }
     if(!team) {
-        return res.send({
-            success:false,
-            message: "Team can't be blank"
-        })
+        return res.send("Team can't be blank")
     }
     if(!desk_no){
-        return res.send({
-            success: false,
-            message: "Desk Number can't be blank"
-        })
+        return res.send("Desk Number can't be blank")
     }
     if(!ext_no) {
-        return res.send({
-            success:false,
-            message: "Extension number can't be blank"
-        })
+        return res.send("Extension number can't be blank")
     }
     if(!approver) {
-        return res.send({
-            success:false,
-            message: "Approver's ID can't be blank"
-        })
+        return res.send("Approver's ID can't be blank> Please check whether you are logged In or not")
     }
     username = username.trim();
 
@@ -122,25 +101,19 @@ router.post('/signup',verify,function(req,res){
         if(!user) {
             User.findOne({username:approver}).then(usercheck =>{
                 if(!usercheck) {
-                    res.send({
-                        success:false,
-                        message: "Enter correct Approver's ID"
-                    })
+                    res.send("Enter correct Approver's ID")
                 }
                 else {
                     User.create({username: username,password:hashedPassword,name:name,team:team,Desk_no:desk_no,Ext_no:ext_no,approver:approver})
                     .then(user => {
-                res.send(user);
+                res.send("Successful");
             });
                 }
             })
             
         }
         else {
-            res.send({
-                success:false,
-                message: "Username already exist"
-            })
+            res.send( "Username already exist")
         }
     });
 });
@@ -161,52 +134,42 @@ router.post('/issue',verify,function(req,res) {
     const {type} = body;
 
     if(!subject){
-        res.send({
-            success:false,
-            message:'Enter subject'
-        })
+        res.send('Enter subject')
     }
 
     if(!email){
-        res.send({
-            success:false,
-            message:'Enter email'
-        })
+        res.send('Enter email')
     }
 
     if(!number){
-        res.send({
-            success:false,
-            message:'Enter number'
-        })
+        res.send('Enter number')
     }
 
     if(!logic){
-        res.send({
-            success:false,
-            message:'Enter logic'
-        })
+        res.send('Enter logic')
     }
 
     if(!approver) {
-        res.send({
-            success:false,
-            message: 'Please login first'
-        })
+        res.send('Please login first')
+    }
+
+    if(!type) {
+        res.send('Enter type of issue')
+    }
+
+    if(!name) {
+        res.send('Enter name of trouble maker❌')
     }
 
     Issue.findOne({subject:subject}).then(issue => {
         if(!issue) {
             Issue.create({subject:subject,type:type,email:email,number:number,logic:logic,approver:approver,team:team,status:status,timestamp: Date(),substatus:substatus,name: name})
             .then(up_issue => {
-                res.send(up_issue);
+                res.send('issue saved');
             });
         }
         else {
-            res.send({
-                success:false,
-                message:"Issue has already been saved!"
-            })
+            res.send("Issue has already been saved!")
         }
     });
     

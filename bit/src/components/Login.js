@@ -9,7 +9,8 @@ class login extends Component {
         this.state={
             username:'',
             password:'',
-            authtoken:''
+            authtoken:'',
+            error:''
         }
     }
     handleChange = (e) => {
@@ -26,16 +27,23 @@ class login extends Component {
         // handle api requests
         axios.post('http://localhost:4000/api/login',user)
         .then(res => {
-            if(res.status === 200){
-                // console.log(res.data.token);
+            if(res.data.message === "Authentication Successful"){
                 this.setState({authtoken:res.data.token});
                 this.props.authtoken(res.data.token);
                 this.props.username(username);
                 this.props.history.push('/pendingissues');
             }
+            else {
+                this.setState({error:res.data})
+            }
         })
     }
     render(){
+        const errorStyle = {
+            color:'red',
+            fontWeight: 'bold',
+            fontSize: 'large'
+        }
         return(
             <div>
             <div className="container">    
@@ -48,6 +56,10 @@ class login extends Component {
                     <button className="btn waves-effect waves-light" type="submit" name="action">Submit
                         <i className="material-icons right"></i>
                     </button>
+                    <br/>
+                    <div style={errorStyle}>
+                        {this.state.error}
+                    </div>
                 </form>
             </div>
             </div>

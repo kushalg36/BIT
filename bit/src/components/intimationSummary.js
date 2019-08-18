@@ -23,7 +23,6 @@ class IntimationSummary extends Component {
         axios.put('http://localhost:4000/api/intimations/'+id,{status:'closed'})
         .then(res => {console.log(res)});
 
-        this.props.history.push('/intimations')
 
     } 
 

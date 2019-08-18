@@ -12,12 +12,14 @@ class signup extends Component {
             team:'',
             desk_no:'',
             ext_no:'',
-            approver:''
+            approver:'',
+            error:''
         }
     }
     handleChange = (e) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            approver: this.props.username
         });
     }
 
@@ -25,7 +27,6 @@ class signup extends Component {
         e.preventDefault();
 
         this.setState({approver: this.props.username})
-        console.log(this.state)
         const user = this.state;
         const token = this.props.authtoken;
         let config = {
@@ -35,10 +36,20 @@ class signup extends Component {
         }
         axios.post('http://localhost:4000/api/signup',user,config)
         .then(res => {
-            console.log(res.data);
+            if(res.data === "Successful") {
+                this.props.history.push('/pendingissues')
+            }
+            else {
+                this.setState({error: res.data})
+            }
         })
     }
     render() {
+        const errorStyle = {
+            color:'red',
+            fontWeight: 'bold',
+            fontSize: 'large'
+        }
         return(
             <div>
             <div className="container">
@@ -72,6 +83,10 @@ class signup extends Component {
                     <button className="btn waves-effect waves-light" type="submit" name="action">Submit
                         <i className="material-icons right"></i>
                     </button>
+                    <br/>
+                    <div style={errorStyle}>
+                        {this.state.error}
+                    </div>
                 </form>
             </div>
             </div>

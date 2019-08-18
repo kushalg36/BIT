@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 const logout = (props) => {
     setTimeout(() => {
         props.history.push('/');
-    }, 2000);
+    }, 500);
     
     props.authtoken('');
 

@@ -16,7 +16,8 @@ class AddIssues extends Component {
                 team:'',
                 type:'',
                 status:'open',
-                substatus:''
+                substatus:'',
+                error:''
             }
     }
 
@@ -38,10 +39,24 @@ class AddIssues extends Component {
 
         const issue = this.state;
         axios.post('http://localhost:4000/api/issue',issue,config)
-        .then();
+        .then(res => {
+            if( res.data === 'issue saved' ) {
+                this.props.history.push('/pendingissues')
+            }
+            else {
+                this.setState ({
+                    error:res.data
+                })
+            }
+        })
     }
 
     render() {
+        const errorStyle = {
+            color:'red',
+            fontWeight: 'bold',
+            fontSize: 'large'
+        }
         return (
             <div>
             <div className="container">
@@ -72,7 +87,9 @@ class AddIssues extends Component {
                     <br/><br/><br/><br/>
                     
                     <button className="btn pink lighten-1 z-depth-100 center">Add Issue</button>
-
+                    <div style={errorStyle}>
+                        {this.state.error}
+                    </div>
                     </form>
                 </div>
             </div>
