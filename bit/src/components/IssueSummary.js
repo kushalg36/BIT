@@ -28,7 +28,7 @@ class Summary extends Component {
         e.preventDefault();
 
         axios.put('http://localhost:4000/api/issue/' + this.props.match.params.id,{substatus: this.state.newsubstatus})
-        .then(res => {console.log(res)});
+        .then(res => {});
     }
 
     handleClick = (e) => {
@@ -36,7 +36,7 @@ class Summary extends Component {
         
         const id = this.props.match.params.id;
         axios.put('http://localhost:4000/api/issue/'+id,{status:'closed'})
-        .then(res => {console.log(res)});
+        .then(res => {});
     }
 
     handleClick1 = (e) => {
@@ -44,7 +44,7 @@ class Summary extends Component {
         
         const id = this.props.match.params.id;
         axios.delete('http://localhost:4000/api/issue/'+id)
-        .then(res => {console.log(res)});
+        .then(res => {});
 
         this.props.history.push('/pendingissues')
     }

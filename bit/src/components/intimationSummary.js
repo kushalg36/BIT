@@ -21,7 +21,7 @@ class IntimationSummary extends Component {
 
         const id = this.props.match.params.id;
         axios.put('http://localhost:4000/api/intimations/'+id,{status:'closed'})
-        .then(res => {console.log(res)});
+        .then(res => {});
 
 
     } 
@@ -30,8 +30,8 @@ class IntimationSummary extends Component {
     handleClick1 = (e) => {
 
         const id = this.props.match.params.id;
-        axios.put('http://localhost:4000/api/intimations/'+id,{substatus:'intimated already!'})
-        .then(res => {console.log(res)});
+        axios.put('http://localhost:4000/api/intimations/'+id,{substatus:'Intimated already!'})
+        .then(res => {});
 
         
     } 
@@ -40,7 +40,7 @@ class IntimationSummary extends Component {
 
         const id = this.props.match.params.id;
         axios.delete('http://localhost:4000/api/intimations/'+id)
-        .then(res => {console.log(res)});
+        .then(res => {});
 
         this.props.history.push('/intimations')
 

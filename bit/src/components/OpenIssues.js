@@ -29,6 +29,11 @@ class openIssues extends Component {
 
     render() {
 
+        const substatusStyle = {
+            color:'red',
+            fontSize:'large'
+        }
+
         const { issues } = this.state;
         const issueList = issues.length ? (
             issues.map(issue => {
@@ -39,7 +44,9 @@ class openIssues extends Component {
                             <span className="card-title">{issue.subject}</span>
                             <div className="card-action">
                                 <p>{issue.name}</p>
-                                {/* <p>{issue.jobAssigned}</p> */}
+                                <div style={substatusStyle}>
+                                    <strong><p>{issue.substatus}</p></strong>
+                                </div>
                                 <p>{issue.type}</p>
                                 <p>{issue.approver}</p>
                             </div>

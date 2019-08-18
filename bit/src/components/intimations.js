@@ -25,6 +25,12 @@ class intimations extends Component {
     }
 
     render(){
+
+        const substatusStyle = {
+            color:'red',
+            fontSize:'large'
+        }
+
         const { intimations } = this.state;
         const intimationsList = intimations.length ? (
             intimations.map(intimation => {
@@ -34,6 +40,9 @@ class intimations extends Component {
                         <div className="card-content">
                             <span className="card-title center">{intimation.subject}</span>
                             <p className="center">{intimation.logic}</p>
+                            <div style={substatusStyle}>
+                                <p className='center'>{intimation.substatus}</p>
+                            </div>
                         </div>
                     </div>
                     </Link>
