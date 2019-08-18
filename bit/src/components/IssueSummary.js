@@ -27,9 +27,26 @@ class Summary extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(this.state.newsubstatus)
         axios.put('http://localhost:4000/api/issue/' + this.props.match.params.id,{substatus: this.state.newsubstatus})
         .then(res => {console.log(res)});
+    }
+
+    handleClick = (e) => {
+        e.preventDefault();
+        
+        const id = this.props.match.params.id;
+        axios.put('http://localhost:4000/api/issue/'+id,{status:'closed'})
+        .then(res => {console.log(res)});
+    }
+
+    handleClick1 = (e) => {
+        e.preventDefault();
+        
+        const id = this.props.match.params.id;
+        axios.delete('http://localhost:4000/api/issue/'+id)
+        .then(res => {console.log(res)});
+
+        this.props.history.push('/pendingissues')
     }
 
     render(){
@@ -90,6 +107,10 @@ class Summary extends Component {
                             <label htmlFor="newsubstatus">Enter your status for the requirment</label><br/><br/>
                             <button className="btn">Submit🙌</button>
                         </form>
+                        <div className="card-action center">
+                            <button className="btn" onClick={this.handleClick}>Done ✔</button>
+                            <button className="btn" onClick={this.handleClick1}>Delete ❌</button>
+                        </div>
                     </div>
                 </div>
             </div>

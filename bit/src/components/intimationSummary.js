@@ -12,7 +12,9 @@ class IntimationSummary extends Component {
         logic:'',
         timestamp:'',
         approver:'',
-        type:''
+        type:'',
+        substatus:'',
+        newsubstatus:''
     }
 
     handleClick = (e) => {
@@ -20,6 +22,29 @@ class IntimationSummary extends Component {
         const id = this.props.match.params.id;
         axios.put('http://localhost:4000/api/intimations/'+id,{status:'closed'})
         .then(res => {console.log(res)});
+
+        this.props.history.push('/intimations')
+
+    } 
+
+
+    handleClick1 = (e) => {
+
+        const id = this.props.match.params.id;
+        axios.put('http://localhost:4000/api/intimations/'+id,{substatus:'intimated already!'})
+        .then(res => {console.log(res)});
+
+        
+    } 
+
+    handleClick2 = (e) => {
+
+        const id = this.props.match.params.id;
+        axios.delete('http://localhost:4000/api/intimations/'+id)
+        .then(res => {console.log(res)});
+
+        this.props.history.push('/intimations')
+
     } 
 
     render(){
@@ -62,8 +87,10 @@ class IntimationSummary extends Component {
                         <div className="card-action grey lighten-4 grey-text">
                                 <p>{this.state.timestamp}</p>
                             </div>
-                        <div className="card-action">
+                        <div className="card-action center">
                             <button className="btn" onClick={this.handleClick}>Done ✔</button>
+                            <button className="btn" onClick={this.handleClick1}>Intimated</button>
+                            <button className="btn" onClick={this.handleClick2}>Delete ❌</button>
                         </div>
                     </div>
                 </div>

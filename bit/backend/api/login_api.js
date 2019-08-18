@@ -265,6 +265,18 @@ router.post('/issue',verify,function(req,res) {
         });
     });
 
+    router.delete('/intimations/:id',(req,res) => {
+        Issue.findByIdAndDelete({_id:req.params.id}).then(result => {
+            res.send(result)
+        });
+    });
+
+    router.delete('/issue/:id',(req,res) => {
+        Issue.findByIdAndDelete({_id:req.params.id}).then(result => {
+            res.send(result)
+        });
+    });
+
 
 
 module.exports = router;
