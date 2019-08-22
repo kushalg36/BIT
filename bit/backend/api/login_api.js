@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const verify = require('./verifyToken.js');
 const  Issue = require('../models/newIssue');
+const Intimation = require('../models/newIntimation');
 
 
 //LOGIN
@@ -178,14 +179,14 @@ router.post('/issue',verify,function(req,res) {
 
 
     router.post('/issues',verify,(req,res) => {
-        Issue.find({status:'open',type: {$ne: 'intimation'}}).then(issues => {
+        Issue.find({status:'open'}).then(issues => {
             res.send(issues);
         });
     });
 
 
     router.post('/intimation',verify,(req,res) => {
-        Issue.find({status:'open',type:'intimation'}).then(issues => {
+        Intimation.find({status:'open'}).then(issues => {
             res.send(issues);
         });
     });
@@ -200,7 +201,7 @@ router.post('/issue',verify,function(req,res) {
     
     router.post('/intimationSummary',verify,(req,res) => {
         // console.log(req.body);
-        Issue.find({_id:req.body.id}).then(intimationSum => {
+        Intimation.find({_id:req.body.id}).then(intimationSum => {
             res.send(intimationSum);
         });
     });
@@ -216,7 +217,7 @@ router.post('/issue',verify,function(req,res) {
 
 
     router.put('/intimations/:id',(req,res) => {
-        Issue.findByIdAndUpdate({_id:req.params.id},req.body).then(result => {
+        Intimation.findByIdAndUpdate({_id:req.params.id},req.body).then(result => {
             res.send(result)
         });
     });
@@ -238,6 +239,55 @@ router.post('/issue',verify,function(req,res) {
         Issue.findByIdAndDelete({_id:req.params.id}).then(result => {
             res.send(result)
         });
+    });
+
+
+    router.post('/addIntimation',(req,res) => {
+        const {body} = req;
+        const {appname} = body;
+        const {subject} = body;
+        const {time} = body;
+        const {ip} = body;
+        const {approver} = body;
+        const {impact} = body;
+        const {circle} = body;
+        const {status} = body;
+        const {substatus} = body;
+        const {issue} = body;
+
+        if(!appname) {
+            res.send('Selected affected Appname');
+        }
+        if(!subject) {
+            res.send('Enter subject');
+        }
+        if(!time) {
+            res.send('Enter activity downtime window');
+        }
+        if(!ip) {
+            res.send('Enter affected IP');
+        }
+        if(!impact) {
+            res.send('Enter proper Impact');
+        }
+        if(!circle) {
+            res.send('Select affected circles');
+        }
+        if(!approver) {
+            res.send('Please login first');
+        }
+        Intimation.findOne({subject:subject}).then (intimation => {
+            if(!intimation) {
+                Intimation.create({appname: appname,subject:subject,time:time,ip:ip,impact:impact,circle:circle,approver:approver,status:status,issue:issue})
+                .then(up_intimation => {
+                    res.send('intimation saved');
+                });
+            }
+            else {
+                res.send('Intimation has been already saved!');
+            }
+        });
+
     });
 
 

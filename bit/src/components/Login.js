@@ -47,8 +47,8 @@ class login extends Component {
         return(
             <div>
             <div className="container">    
-            <h2 className="center">Login</h2>
                 <form  onSubmit={this.handleSubmit}>
+                    <h2 className="center">Login</h2>
                     <label>Employee ID</label><br/>
                     <input type="text" id="username" autoFocus onChange={this.handleChange} /><br/><br/>
                     <label>Password</label><br/>

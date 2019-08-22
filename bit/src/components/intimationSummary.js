@@ -4,15 +4,15 @@ import {connect} from 'react-redux';
 
 class IntimationSummary extends Component {
     state={
-        name:'',
+        appname:[],
+        circle:[],
+        ip:'',
         subject:'',
-        email:'',
-        number:'',
         status:'',
-        logic:'',
+        issue:'',
         timestamp:'',
         approver:'',
-        type:'',
+        impact:'',
         substatus:'',
         newsubstatus:''
     }
@@ -60,29 +60,30 @@ class IntimationSummary extends Component {
         .then(res => {
             this.setState({
                 subject:res.data[0].subject,
-                name: res.data[0].name,
-                email: res.data[0].email,
-                number:res.data[0].number,
+                ip:res.data[0].ip,
+                appname:res.data[0].appname,
+                circle:res.data[0].circle,
                 status:res.data[0].status,
-                logic: res.data[0].logic,
-                timestamp: res.data[0].timestamp,
-                approver:res.data[0].approver,
-                type: res.data[0].type
+                issue: res.data[0].logic,
+                timestamp: res.data[0].time,
+                approver:res.data[0].approver
             })
         })
+
+        
+
         return(
             <div className="container section project-details">
                 <div className="card z-depth-10">
                     <div className="card-content">
                         <h5 className="center title">Issue id: {id}</h5>
                         <p>Subject Line: {this.state.subject}</p><br/>
-                        <p>Name of the user: {this.state.name}</p><br/>
-                        <p>Email: {this.state.email}</p><br/>
-                        <p>Contact Number: {this.state.number}</p><br/>
-                        <p>Logic: {this.state.logic}</p><br/>
+                        <p>Affected IP: {this.state.ip}</p><br/>
+                        <p>Affected Appname: {this.state.appname.map(app => <span>{app}, </span>)}</p><br/>
                         <p>Approver: {this.state.approver}</p><br/>
                         <p>Status: {this.state.status}</p><br/>
-                        <p>Type: {this.state.type}</p><br/>
+                        <p>Issue: {this.state.issue}</p><br/>
+                        <p>Cricles Affected: {this.state.circle.map(circle => <span>{circle}, </span>)}</p><br/>
                         <div className="card-action grey lighten-4 grey-text">
                                 <p>{this.state.timestamp}</p>
                             </div>

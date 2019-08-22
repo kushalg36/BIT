@@ -10,6 +10,7 @@ import OpenIssues from './components/OpenIssues.js';
 import IssueSummary from './components/IssueSummary.js';
 import Intimations from './components/intimations.js';
 import IntimationSummary from './components/intimationSummary';
+import AddIntimation from './components/AddIntimation.js';
 
 class App extends Component {
   render(){
@@ -27,6 +28,7 @@ class App extends Component {
         <Route path='/issue/:id' component={IssueSummary} />
         <Route path='/intimations' component={Intimations} />
         <Route path='/intimation/:id' component={IntimationSummary} />
+        <Route path='/addintimation' component={AddIntimation} />
         </div>
       </div>
     </BrowserRouter>

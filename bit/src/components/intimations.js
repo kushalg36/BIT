@@ -39,9 +39,10 @@ class intimations extends Component {
                     <div className="post card" key="{intimation._id}">
                         <div className="card-content">
                             <span className="card-title center">{intimation.subject}</span>
-                            <p className="center">{intimation.logic}</p>
+                            <p className="center">{intimation.time}</p>
                             <div style={substatusStyle}>
                                 <p className='center'>{intimation.substatus}</p>
+                                <p className='center'>{intimation.ip}</p>
                             </div>
                         </div>
                     </div>
