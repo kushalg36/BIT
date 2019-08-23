@@ -14,7 +14,11 @@ class IntimationSummary extends Component {
         approver:'',
         impact:'',
         substatus:'',
-        newsubstatus:''
+        newsubstatus:'',
+        to:'',
+        from:'kushalg36@gmail.com',
+        subjectLine:'',
+        body:''
     }
 
     handleClick = (e) => {
@@ -45,6 +49,7 @@ class IntimationSummary extends Component {
         this.props.history.push('/intimations')
 
     } 
+
 
     render(){
 
