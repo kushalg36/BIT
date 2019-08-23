@@ -7,7 +7,7 @@ const Navbar = (props) => {
     const links = props.authtoken ?<SignedInLinks/>:<SignedOutLinks/>
     return (
         <nav className="nav-wrapper light-blue">
-            <div className="">
+            <div className="nav">
             <a href="/" className="brand-logo left">Issue Tracker</a>
                 {links}
             </div>

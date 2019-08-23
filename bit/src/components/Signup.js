@@ -55,8 +55,6 @@ class signup extends Component {
             <div className="container">
                 <form onSubmit={this.handleSubmit}>
                     <h2 className="center">SignUp</h2>
-                    {/* <input id="ID" type="text" name="approver" onChange={this.handleChange} />
-                    <label htmlFor="ID">Approver's  ID</label> */}
                     
                     <input id="employee id" type="text" name="username" onChange={this.handleChange} />
                     <label htmlFor="employee id">New Employee ID</label>
